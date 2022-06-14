@@ -1,13 +1,14 @@
-import { Grow } from '@mui/material';
+import { Button, Grow, Typography } from '@mui/material';
 import React from 'react';
 
 
 function AnswerQuiz(props) {
     const quiz = props.quiz;
-
     return (
-        <Grow in={props.in}>
-            <p>asdsd</p>
+        <Grow in={true}>
+            <Typography>
+                {JSON.stringify(quiz)}
+            </Typography>
         </Grow>
     );
 }

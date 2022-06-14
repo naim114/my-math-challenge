@@ -1,27 +1,28 @@
 import React, { useState } from 'react';
+import { generateQuiz } from '../controller/MathQuizUtils';
 import AnswerQuiz from '../mathQuiz/AnswerQuiz';
 import QuizSettings from '../mathQuiz/QuizSettings';
+import StartQuiz from '../mathQuiz/StartQuiz';
 
 function MathQuiz() {
-    const [quiz, setQuiz] = useState({
-        questionNo: null,
-        maxDigits: null,
-        timeLimit: null, // in seconds
-        operation: {
-            add: null,
-            subs: null,
-            multi: null,
-            div: null,
-        }
-    });
+    const [section, setSection] = useState(
+        <StartQuiz onSubmit={() => {
+            setSection(
+                <QuizSettings
+                    onSubmit={onSettingsSubmit}
+                />
+            )
+        }} />
+    );
 
-    const [inSettings, setInSettings] = useState(true);
-    const [inAnswer, setInAnswer] = useState(false);
+    const [quiz, setQuiz] = useState();
 
     const onSettingsSubmit = (value) => {
-        setQuiz(value);
-        setInSettings(false);
-        setInAnswer(true);
+        setSection(
+            <AnswerQuiz
+                quiz={generateQuiz(value)}
+            />
+        );
     }
 
     return (
@@ -31,15 +32,9 @@ function MathQuiz() {
             <div
                 style={{ width: '90vw' }}
             >
-                <QuizSettings
-                    in={inSettings}
-                    onSubmit={onSettingsSubmit}
-                    display={inSettings ? 'block' : 'none'}
-                />
-                <AnswerQuiz
-                    in={inAnswer}
-                    quiz={quiz}
-                />
+                {
+                    section
+                }
             </div>
         </div>
     );

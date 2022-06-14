@@ -1,10 +1,10 @@
-import { Button, Checkbox, FormControlLabel, FormGroup, Grid, Grow, TextField, Typography } from '@mui/material';
+import { Alert, Button, Checkbox, FormControlLabel, FormGroup, Grid, Grow, TextField, Typography } from '@mui/material';
 import React from 'react';
 
 function QuizSettings(props) {
-    const [quiz, setQuiz] = React.useState({
+    const [quizSettings, setQuizSettings] = React.useState({
         questionNo: '',
-        maxDigits: '',
+        numDigits: '',
         timeLimit: '', // in seconds
         operation: {
             add: false,
@@ -14,13 +14,33 @@ function QuizSettings(props) {
         }
     });
 
+    const [err, setErr] = React.useState(null);
+
     const handleSubmit = () => {
-        props.onSubmit(quiz);
+        if (
+            quizSettings["timeLimit"] === "" ||
+            quizSettings["numDigits"] === "" ||
+            quizSettings["questionNo"] === ""
+        ) {
+            setErr("Please enter all field");
+            return false
+        }
+        if (
+            quizSettings["operation"]["add"] === false &&
+            quizSettings["operation"]["subs"] === false &&
+            quizSettings["operation"]["multi"] === false &&
+            quizSettings["operation"]["div"] === false
+        ) {
+            setErr("At least one operation has to be checked");
+            return false;
+        }
+
+        props.onSubmit(quizSettings);
     }
 
     return (
-        <div style={{ display: props.display }}>
-            <Grow in={props.in}>
+        <div>
+            <Grow in={true}>
                 <Grid
                     container
                 >
@@ -31,33 +51,42 @@ function QuizSettings(props) {
                         container
                         spacing={2}
                     >
+                        {
+                            err === null
+                                ?
+                                <span></span>
+                                :
+                                <Grid item xs={12} md={12}>
+                                    <Alert severity="error">{err}</Alert>
+                                </Grid>
+                        }
                         <Grid item xs={4} md={4}>
                             Question No:
                         </Grid>
                         <Grid item xs={8} md={8}>
-                            <TextField onChange={(e) => setQuiz({ ...quiz, questionNo: e.target.value })} value={quiz["questionNo"]} fullWidth={true} label="Enter number of question" variant="filled" />
+                            <TextField onKeyPress={(event) => { if (!/[0-9]/.test(event.key)) { event.preventDefault(); } }} onChange={(e) => setQuizSettings({ ...quizSettings, questionNo: e.target.value })} value={quizSettings["questionNo"]} fullWidth={true} label="Enter number of question" variant="filled" />
                         </Grid>
                         <Grid item xs={4} md={4}>
-                            Maximum digits:
+                            Number digits:
                         </Grid>
                         <Grid item xs={8} md={8}>
-                            <TextField onChange={(e) => setQuiz({ ...quiz, maxDigits: e.target.value })} value={quiz["maxDigits"]} fullWidth={true} label="Enter maximum digits" variant="filled" />
+                            <TextField onKeyPress={(event) => { if (!/[0-9]/.test(event.key)) { event.preventDefault(); } }} onChange={(e) => setQuizSettings({ ...quizSettings, numDigits: e.target.value })} value={quizSettings["numDigits"]} fullWidth={true} label="Enter maximum digits" variant="filled" />
                         </Grid>
                         <Grid item xs={4} md={4}>
                             {"Time Limit (seconds):"}
                         </Grid>
                         <Grid item xs={8} md={8}>
-                            <TextField onKeyPress={(event) => { if (!/[0-9]/.test(event.key)) { event.preventDefault(); } }} onChange={(e) => setQuiz({ ...quiz, timeLimit: e.target.value })} value={quiz["timeLimit"]} fullWidth={true} type='number' label="Enter time limit" variant="filled" />
+                            <TextField onKeyPress={(event) => { if (!/[0-9]/.test(event.key)) { event.preventDefault(); } }} onChange={(e) => setQuizSettings({ ...quizSettings, timeLimit: e.target.value })} value={quizSettings["timeLimit"]} fullWidth={true} type='number' label="Enter time limit" variant="filled" />
                         </Grid>
                         <Grid item xs={4} md={4}>
                             Operation:
                         </Grid>
                         <Grid item xs={8} md={8}>
                             <FormGroup>
-                                <FormControlLabel control={<Checkbox onChange={(e) => setQuiz({ ...quiz, operation: { ...quiz["operation"], add: e.target.checked } })} checked={quiz["operation"]["add"]} />} label="Add" />
-                                <FormControlLabel control={<Checkbox onChange={(e) => setQuiz({ ...quiz, operation: { ...quiz["operation"], subs: e.target.checked } })} checked={quiz["operation"]["subs"]} />} label="Substract" />
-                                <FormControlLabel control={<Checkbox onChange={(e) => setQuiz({ ...quiz, operation: { ...quiz["operation"], multi: e.target.checked } })} checked={quiz["operation"]["multi"]} />} label="Multiply" />
-                                <FormControlLabel control={<Checkbox onChange={(e) => setQuiz({ ...quiz, operation: { ...quiz["operation"], div: e.target.checked } })} checked={quiz["operation"]["div"]} />} label="Division" />
+                                <FormControlLabel control={<Checkbox onChange={(e) => setQuizSettings({ ...quizSettings, operation: { ...quizSettings["operation"], add: e.target.checked } })} checked={quizSettings["operation"]["add"]} />} label="Add" />
+                                <FormControlLabel control={<Checkbox onChange={(e) => setQuizSettings({ ...quizSettings, operation: { ...quizSettings["operation"], subs: e.target.checked } })} checked={quizSettings["operation"]["subs"]} />} label="Substract" />
+                                <FormControlLabel control={<Checkbox onChange={(e) => setQuizSettings({ ...quizSettings, operation: { ...quizSettings["operation"], multi: e.target.checked } })} checked={quizSettings["operation"]["multi"]} />} label="Multiply" />
+                                <FormControlLabel control={<Checkbox onChange={(e) => setQuizSettings({ ...quizSettings, operation: { ...quizSettings["operation"], div: e.target.checked } })} checked={quizSettings["operation"]["div"]} />} label="Division" />
                             </FormGroup>
                         </Grid>
                         <Grid
@@ -66,7 +95,7 @@ function QuizSettings(props) {
                             justifyContent="flex-end"
                             alignItems="center"
                         >
-                            <Button style={{ marginTop: 20 }} onClick={handleSubmit} variant="contained">Complete</Button>
+                            <Button style={{ marginTop: 20 }} onClick={handleSubmit} variant="contained">Start Answer</Button>
                         </Grid>
                     </Grid>
                 </Grid>
