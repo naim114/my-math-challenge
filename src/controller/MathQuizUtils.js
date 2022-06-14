@@ -1,5 +1,3 @@
-import React from 'react';
-
 export function generateQuiz(quizSettings) {
     // generate random number to operate
     const max = Math.pow(10, (quizSettings["numDigits"] - 1));
@@ -21,32 +19,86 @@ export function generateQuiz(quizSettings) {
 
         let question = {};
 
-        if (ope[selectedOpeIndex - 1] == "+") {
+        if (ope[selectedOpeIndex - 1] === "+") {
+            const answerList = [];
+
+            answerList.push({ "text": number1 + number2, "isCorrect": true });
+            answerList.push({ "text": (number1 + number2) + 3, "isCorrect": false });
+            answerList.push({ "text": (number1 + number2) - 2, "isCorrect": false });
+            answerList.push({ "text": (number1 + number2) + 5, "isCorrect": false });
+
+            shuffle(answerList);
+
             question = {
                 question: number1 + " + " + number2,
-                answer: number1 + number2,
+                answer: answerList,
             }
-        } else if (ope[selectedOpeIndex - 1] == "-") {
+        } else if (ope[selectedOpeIndex - 1] === "-") {
+            const answerList = [];
+
+            answerList.push({ "text": number1 - number2, "isCorrect": true });
+            answerList.push({ "text": (number1 - number2) + 3, "isCorrect": false });
+            answerList.push({ "text": (number1 - number2) - 2, "isCorrect": false });
+            answerList.push({ "text": (number1 - number2) + 5, "isCorrect": false });
+
+            shuffle(answerList);
+
             question = {
                 question: number1 + " - " + number2,
-                answer: number1 - number2,
+                answer: answerList,
             }
-        } else if (ope[selectedOpeIndex - 1] == "*") {
+        } else if (ope[selectedOpeIndex - 1] === "*") {
+            const answerList = [];
+
+            answerList.push({ "text": number1 * number2, "isCorrect": true });
+            answerList.push({ "text": (number1 * number2) + 3, "isCorrect": false });
+            answerList.push({ "text": (number1 * number2) - 2, "isCorrect": false });
+            answerList.push({ "text": (number1 * number2) + 5, "isCorrect": false });
+
+            shuffle(answerList);
+
             question = {
-                question: number1 + " * " + number2,
-                answer: number1 * number2,
+                question: number1 + " x " + number2,
+                answer: answerList,
             }
-        } else if (ope[selectedOpeIndex - 1] == "/") {
+        } else if (ope[selectedOpeIndex - 1] === "/") {
+            const answerList = [];
+
+            answerList.push({ "text": number1 / number2, "isCorrect": true });
+            answerList.push({ "text": (number1 / number2) + 3, "isCorrect": false });
+            answerList.push({ "text": (number1 / number2) - 2, "isCorrect": false });
+            answerList.push({ "text": (number1 / number2) + 5, "isCorrect": false });
+
+            shuffle(answerList);
+
             question = {
-                question: number1 + " / " + number2,
-                answer: number1 / number2,
+                question: number1 + " ÷ " + number2,
+                answer: answerList,
             }
         }
 
         questionList.push(question);
     }
 
-    console.log(questionList);
+    console.log("generated question list:\n" + JSON.stringify(questionList));
 
     return questionList;
+}
+
+function shuffle(array) {
+    let currentIndex = array.length, randomIndex;
+
+    // While there remain elements to shuffle.
+    while (currentIndex != 0) {
+
+        // Pick a remaining element.
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
+
+        // And swap it with the current element.
+        [array[currentIndex], array[randomIndex]] = [
+            array[randomIndex], array[currentIndex]];
+    }
+
+    return array;
 }

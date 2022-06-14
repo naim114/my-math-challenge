@@ -15,19 +15,18 @@ function MathQuiz() {
         }} />
     );
 
-    const [quiz, setQuiz] = useState();
-
     const onSettingsSubmit = (value) => {
         setSection(
             <AnswerQuiz
                 quiz={generateQuiz(value)}
+                onFinish={(score) => { console.log("Your final score is " + score) }}
             />
         );
     }
 
     return (
         <div
-            style={{ display: 'flex', justifyContent: 'center', height: '100vh', paddingTop: 50, overflow: 'hidden' }}
+            style={{ display: 'flex', justifyContent: 'center', height: '100%', paddingTop: 50, overflow: 'hidden' }}
         >
             <div
                 style={{ width: '90vw' }}
