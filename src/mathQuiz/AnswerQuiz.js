@@ -51,12 +51,10 @@ function AnswerQuiz(props) {
 
         if ((index + 1) === quiz.length) {
             if (isCorrect) {
-                console.log("final score: " + (score + 1));
-                console.log("og length: " + quiz.length);
-                onFinish(score + 1, quiz.length);
+                console.log("final score: " + (score));
+                onFinish(score, quiz.length);
             } else {
                 console.log("final score: " + (score));
-                console.log("og length: " + quiz.length);
                 onFinish(score, quiz.length);
             }
         } else {
