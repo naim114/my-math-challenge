@@ -5,7 +5,7 @@ function QuizSettings(props) {
     const [quizSettings, setQuizSettings] = React.useState({
         questionNo: '',
         numDigits: '',
-        timeLimit: '', // in seconds
+        // timeLimit: '', // in seconds
         operation: {
             add: false,
             subs: false,
@@ -18,13 +18,14 @@ function QuizSettings(props) {
 
     const handleSubmit = () => {
         if (
-            quizSettings["timeLimit"] === "" ||
+            // quizSettings["timeLimit"] === "" ||
             quizSettings["numDigits"] === "" ||
             quizSettings["questionNo"] === ""
         ) {
             setErr("Please enter all field");
             return false
         }
+
         if (
             quizSettings["operation"]["add"] === false &&
             quizSettings["operation"]["subs"] === false &&
@@ -32,6 +33,16 @@ function QuizSettings(props) {
             quizSettings["operation"]["div"] === false
         ) {
             setErr("At least one operation has to be checked");
+            return false;
+        }
+
+        if (Number(quizSettings["numDigits"]) > 10) {
+            setErr("Number digits entered exceded maximum");
+            return false;
+        }
+
+        if (Number(quizSettings["questionNo"]) > 100) {
+            setErr("Question number entered exceded maximum");
             return false;
         }
 
@@ -72,12 +83,12 @@ function QuizSettings(props) {
                         <Grid item xs={8} md={8}>
                             <TextField onKeyPress={(event) => { if (!/[0-9]/.test(event.key)) { event.preventDefault(); } }} onChange={(e) => setQuizSettings({ ...quizSettings, numDigits: e.target.value })} value={quizSettings["numDigits"]} fullWidth={true} label="Enter maximum digits" variant="filled" />
                         </Grid>
-                        <Grid item xs={4} md={4}>
+                        {/* <Grid item xs={4} md={4}>
                             {"Time Limit (seconds):"}
-                        </Grid>
-                        <Grid item xs={8} md={8}>
+                        </Grid> */}
+                        {/* <Grid item xs={8} md={8}>
                             <TextField onKeyPress={(event) => { if (!/[0-9]/.test(event.key)) { event.preventDefault(); } }} onChange={(e) => setQuizSettings({ ...quizSettings, timeLimit: e.target.value })} value={quizSettings["timeLimit"]} fullWidth={true} type='number' label="Enter time limit" variant="filled" />
-                        </Grid>
+                        </Grid> */}
                         <Grid item xs={4} md={4}>
                             Operation:
                         </Grid>

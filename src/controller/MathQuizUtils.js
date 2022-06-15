@@ -14,8 +14,21 @@ export function generateQuiz(quizSettings) {
 
     for (let index = 0; index < quizSettings["questionNo"]; index++) {
         const selectedOpeIndex = Math.floor((Math.random() * ope.length) + 1);
-        const number1 = Math.floor(Math.random() * (max - min) + min);
-        const number2 = Math.floor(Math.random() * (max - min) + min);
+
+        let number1 = getRandomNumber(max, min);
+        let number2 = getRandomNumber(max, min);
+
+        if (number2 > number1) {
+            console.log("num2 bigger");
+
+            while (number1 < number2) {
+                number2 = getRandomNumber(max, min);
+            }
+        }
+
+        // if (number2 > number1) {
+        //     console.log("it dont work");
+        // }
 
         let question = {};
 
@@ -89,7 +102,7 @@ function shuffle(array) {
     let currentIndex = array.length, randomIndex;
 
     // While there remain elements to shuffle.
-    while (currentIndex != 0) {
+    while (currentIndex !== 0) {
 
         // Pick a remaining element.
         randomIndex = Math.floor(Math.random() * currentIndex);
@@ -101,4 +114,32 @@ function shuffle(array) {
     }
 
     return array;
+}
+
+function getRandomNumber(max, min) {
+    return Math.floor(Math.random() * (max - min) + min)
+}
+
+export function generateText(isCorrect) {
+    const correct = [
+        "Excellent!",
+        "Correct!",
+        "Good Job!",
+        "It is correct!",
+        "Awesome!!",
+    ]
+
+    const incorrect = [
+        "Try again",
+        "Incorrect",
+        "Wrong",
+        "Aww try again :(",
+        "Better luck next time",
+    ]
+
+    if (isCorrect) {
+        return correct[Math.floor(Math.random() * correct.length)];
+    } else {
+        return incorrect[Math.floor(Math.random() * incorrect.length)];
+    }
 }

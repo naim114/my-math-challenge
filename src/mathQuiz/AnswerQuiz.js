@@ -1,5 +1,6 @@
-import { Grid, Grow, Typography, Slide, Box, Button } from '@mui/material';
+import { Grid, Grow, Typography, Box } from '@mui/material';
 import React from 'react';
+import { generateText } from '../controller/MathQuizUtils';
 import QuestionAnswer from './QuestionAnswer';
 
 function AnswerQuiz(props) {
@@ -9,21 +10,39 @@ function AnswerQuiz(props) {
 
     const [score, setScore] = React.useState(0);
 
-    const onFinish = (score) => {
-        props.onFinish(score);
+    const [isCorrect, setIsCorrect] = React.useState(null);
+
+    const [text, setText] = React.useState("");
+
+    const onFinish = (score, length) => {
+        props.onFinish(score, length);
     }
 
     const onAnswer = (value) => {
+        console.log("result: " + value);
+
         if (value) {
             setScore(score + 1);
             console.log("score: " + (score + 1));
+            setIsCorrect(true);
+            setText(generateText(value));
+        } else {
+            setIsCorrect(false);
+            setText(generateText(value));
         }
 
         console.log("index: " + (index + 1));
 
         if ((index + 1) === quiz.length) {
-            console.log("final score: " + (score + 1));
-            onFinish(score + 1);
+            if (value) {
+                console.log("final score: " + (score + 1));
+                console.log("og length: " + quiz.length);
+                onFinish(score + 1, quiz.length);
+            } else {
+                console.log("final score: " + (score));
+                console.log("og length: " + quiz.length);
+                onFinish(score, quiz.length);
+            }
         } else {
             setIndex(index + 1);
         }
@@ -56,7 +75,7 @@ function AnswerQuiz(props) {
                             color: 'white',
                         }}
                     >
-                        10:10
+                        Score: {score}
                     </Box>
                     <Typography
                         style={{
@@ -67,6 +86,20 @@ function AnswerQuiz(props) {
                     </Typography>
                 </Grid>
                 <QuestionAnswer question={quiz[index]} onAnswer={onAnswer} />
+                {
+                    isCorrect === null
+                        ?
+                        <span></span>
+                        : <Typography
+                            style={{
+                                fontSize: 30,
+                                fontWeight: 'bold',
+                                color: isCorrect ? 'green' : 'red',
+                            }}
+                        >
+                            {text}
+                        </Typography>
+                }
             </Grid>
         </Grow >
     );

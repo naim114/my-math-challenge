@@ -1,4 +1,4 @@
-import { Grid, Grow, Typography, Slide, Box, Button } from '@mui/material';
+import { Grid, Typography, Slide } from '@mui/material';
 import AnswerButton from '../component/AnswerButton';
 
 function QuestionAnswer(props) {
@@ -15,7 +15,7 @@ function QuestionAnswer(props) {
             mountOnEnter
             unmountOnExit
             style={{
-                marginTop: 50,
+                marginTop: 100,
                 marginBottom: 50,
             }}
         >
