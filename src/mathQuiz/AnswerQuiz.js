@@ -1,4 +1,4 @@
-import { Grid, Grow, Typography, Box, Slide } from '@mui/material';
+import { Grid, Grow, Typography, Box } from '@mui/material';
 import React from 'react';
 import { generateGIF, generateText } from '../controller/MathQuizUtils';
 import QuestionAnswer from './QuestionAnswer';
