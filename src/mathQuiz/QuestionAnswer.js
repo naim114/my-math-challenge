@@ -5,7 +5,17 @@ function QuestionAnswer(props) {
     const question = props.question;
 
     const onAnswer = (value) => {
-        props.onAnswer(value);
+        const answerList = question["answer"];
+        let correctAnswer = 0;
+
+        for (let index = 0; index < answerList.length; index++) {
+            if (answerList[index]["isCorrect"] === true) {
+                console.log("Correct answer is " + answerList[index]["text"]);
+                correctAnswer = answerList[index]["text"];
+            }
+        }
+
+        props.onAnswer(value, correctAnswer);
     }
 
     return (

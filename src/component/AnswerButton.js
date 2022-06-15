@@ -12,6 +12,7 @@ function AnswerButton(props) {
                 margin: 20
             }}
             onClick={props.onClick}
+            color="secondary"
         >
             {props.label}
         </Button>
