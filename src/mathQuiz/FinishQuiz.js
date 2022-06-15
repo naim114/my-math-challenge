@@ -11,13 +11,13 @@ function FinishQuiz(props) {
                     justifyContent="flex-start"
                     alignItems="center"
                 >
-                    <Typography variant="h5" gutterBottom component="div" style={{ marginBottom: 20 }}>
+                    <Typography variant="h5" gutterBottom component="div" style={{ marginBottom: 20, textAlign: 'center' }}>
                         Your final score is...
                     </Typography>
-                    <Typography variant="h1" gutterBottom component="div" style={{ marginBottom: 20 }}>
+                    <Typography variant="h1" gutterBottom component="div" style={{ marginBottom: 20, textAlign: 'center' }}>
                         {props.finalScore} / {props.length}
                     </Typography>
-                    <Typography variant="h5" gutterBottom component="div" style={{ marginBottom: 20 }}>
+                    <Typography variant="h5" gutterBottom component="div" style={{ marginBottom: 20, textAlign: 'center' }}>
                         Press PLAY AGAIN to go back answer the quiz.
                     </Typography>
                     <Button

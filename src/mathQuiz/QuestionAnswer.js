@@ -15,8 +15,8 @@ function QuestionAnswer(props) {
             mountOnEnter
             unmountOnExit
             style={{
-                marginTop: 100,
-                marginBottom: 50,
+                marginTop: 40,
+                marginBottom: 20,
             }}
         >
             <div>

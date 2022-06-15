@@ -1,6 +1,6 @@
-import { Grid, Grow, Typography, Box } from '@mui/material';
+import { Grid, Grow, Typography, Box, Slide } from '@mui/material';
 import React from 'react';
-import { generateText } from '../controller/MathQuizUtils';
+import { generateGIF, generateText } from '../controller/MathQuizUtils';
 import QuestionAnswer from './QuestionAnswer';
 
 function AnswerQuiz(props) {
@@ -14,6 +14,8 @@ function AnswerQuiz(props) {
 
     const [text, setText] = React.useState("");
 
+    const [gif, setGif] = React.useState("");
+
     const onFinish = (score, length) => {
         props.onFinish(score, length);
     }
@@ -26,9 +28,11 @@ function AnswerQuiz(props) {
             console.log("score: " + (score + 1));
             setIsCorrect(true);
             setText(generateText(value));
+            setGif(generateGIF(value));
         } else {
             setIsCorrect(false);
             setText(generateText(value));
+            setGif(generateGIF(value));
         }
 
         console.log("index: " + (index + 1));
@@ -56,6 +60,9 @@ function AnswerQuiz(props) {
                 direction="column"
                 justifyContent="flex-start"
                 alignItems="center"
+                style={{
+                    width: '100%'
+                }}
             >
                 <Grid
                     container
@@ -73,6 +80,7 @@ function AnswerQuiz(props) {
                             borderRadius: 30,
                             fontSize: 25,
                             color: 'white',
+                            textAlign: 'center',
                         }}
                     >
                         Score: {score}
@@ -80,6 +88,7 @@ function AnswerQuiz(props) {
                     <Typography
                         style={{
                             fontSize: 20,
+                            textAlign: 'center',
                         }}
                     >
                         Question {index + 1} out of {quiz.length}
@@ -90,15 +99,36 @@ function AnswerQuiz(props) {
                     isCorrect === null
                         ?
                         <span></span>
-                        : <Typography
+                        :
+                        <Grid
+                            container
+                            direction="column"
+                            justifyContent="center"
+                            alignItems="center"
                             style={{
-                                fontSize: 30,
-                                fontWeight: 'bold',
-                                color: isCorrect ? 'green' : 'red',
+                                marginBottom: 10,
                             }}
                         >
-                            {text}
-                        </Typography>
+                            <Typography
+                                variant="h5"
+                                style={{
+                                    fontSize: 30,
+                                    fontWeight: 'bold',
+                                    color: isCorrect ? 'green' : 'red',
+                                    textAlign: 'center',
+                                    marginBottom: 10,
+                                }}
+                            >
+                                {text}
+                            </Typography>
+                            <img
+                                src={gif}
+                                alt="loading..."
+                                style={{
+                                    width: '50vw',
+                                }}
+                            />
+                        </Grid>
                 }
             </Grid>
         </Grow >

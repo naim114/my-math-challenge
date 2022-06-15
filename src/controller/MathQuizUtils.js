@@ -143,3 +143,26 @@ export function generateText(isCorrect) {
         return incorrect[Math.floor(Math.random() * incorrect.length)];
     }
 }
+
+export function generateGIF(isCorrect) {
+    const correct = [
+        'https://media.giphy.com/media/tTKwUCYz1DjGO2mKJJ/giphy.gif',
+        'https://media.giphy.com/media/7zLhR58ckkJtbmqmN2/giphy.gif',
+        'https://media.giphy.com/media/tkApIfibjeWt1ufWwj/giphy.gif',
+        'https://media.giphy.com/media/dVdIu1HNxeKyqzkgPA/giphy.gif',
+        'https://media.giphy.com/media/a9imQoghMq5IQ/giphy.gif',
+    ];
+    const incorrect = [
+        'https://media.giphy.com/media/Y4n2kBbEYjeGIvQSA1/giphy.gif',
+        'https://media.giphy.com/media/15UR4cUa8Vbyw/giphy.gif',
+        'https://media.giphy.com/media/15UR4cUa8Vbyw/giphy.gif',
+        'https://media.giphy.com/media/3o6Zt2qh8vSNFH30SQ/giphy.gif',
+        'https://media.giphy.com/media/eveLVPcHcbl0A/giphy.gif',
+    ];
+
+    if (isCorrect) {
+        return correct[Math.floor(Math.random() * correct.length)];
+    } else {
+        return incorrect[Math.floor(Math.random() * incorrect.length)];
+    }
+}
