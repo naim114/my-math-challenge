@@ -147,7 +147,7 @@ function AnswerQuiz(props) {
                                         src={gif}
                                         alt="loading..."
                                         style={{
-                                            width: '40vw',
+                                            width: 300,
                                             margin: 5,
                                         }}
                                     />

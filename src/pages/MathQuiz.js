@@ -42,7 +42,7 @@ function MathQuiz() {
 
     return (
         <div
-            style={{ display: 'flex', justifyContent: 'center', height: '100%', paddingTop: 50, overflow: 'hidden' }}
+            style={{ display: 'flex', justifyContent: 'center', height: '100%', paddingTop: 50, paddingBottom: 50, overflow: 'hidden' }}
         >
             <div
                 style={{ width: '90vw' }}

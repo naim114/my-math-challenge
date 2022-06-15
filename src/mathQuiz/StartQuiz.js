@@ -12,11 +12,15 @@ function StartQuiz(props) {
                     direction="column"
                     justifyContent="flex-start"
                     alignItems="center"
+                    style={{
+                        width: '100%',
+                        textAlign: 'center',
+                    }}
                 >
-                    <Typography variant="h4" gutterBottom component="div" style={{ marginBottom: 20 }}>
+                    <Typography variant="h4" gutterBottom component="div" style={{ marginBottom: 20, textAlign: 'center', }}>
                         MATH QUIZ
                     </Typography>
-                    <img style={{ height: '10%', margin: 20 }} src={mathGif} alt="loading..." />
+                    <img style={{ width: 300, margin: 20 }} src={mathGif} alt="loading..." />
                     <Typography variant="h5" gutterBottom component="div" style={{ marginBottom: 20 }}>
                         Press start if you ready.
                     </Typography>
